@@ -4,12 +4,11 @@ import routes from './routes/index.js';
 import connectDB from '../config/db.js';
 
 const app = express();
-
+app.use(fileUpload());
 connectDB();
 
 app.set('views', './client');
 app.set('view engine', 'ejs');
-app.use(express.static('client/public'));
 
 routes(app);
 
