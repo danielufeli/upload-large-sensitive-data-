@@ -1,10 +1,11 @@
-import bodyParser from 'body-parser';
+import express from 'express';
 import home from './home.js';
+import users from './users.js';
 
 export default (app) => {
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: true }));
+  app.use(express.json({ extended: false }));
   app.use('/', home);
+  app.use('/api/v1/auth', users);
   app.use((req, res, next) =>
     res
       .status(404)

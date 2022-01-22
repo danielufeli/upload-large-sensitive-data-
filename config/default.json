@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://dinosolution:C3pNYpUKcheyCWEC@cluster0.oidtp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+  "mongoURI": "mongodb+srv://dinosolution:C3pNYpUKcheyCWEC@cluster0.oidtp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "jwtSecret": "mysecrettoken"
 }
