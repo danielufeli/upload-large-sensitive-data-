@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>File Uploaded - Sign-in</title>
+    <link rel="stylesheet" href="./public/css/style.css" />
+  </head>
+  <body>
+    <div class="login-flex-container">
+      <div class="login-main-content">
+        <form id="signForm" class="login-form" onsubmit="return false;">
+          <h1>Sign in Here</h1>
+          <p id="errorlog" class="warning"></p>
+          <br />
+          <input type="text" id="email" placeholder="Enter Your Email" />
+          <input type="password" id="password" placeholder="Enter Password" />
+          <input type="submit" id="loginBtn" value="signin" />
+          <p><a href="signup.html">Create an account</a></p>
+        </form>
+      </div>
+    </div>
+  </body>
+  <script src="./public/js/signin.js"></script>
+</html>
