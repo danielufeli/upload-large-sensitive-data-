@@ -7,6 +7,13 @@ const userValidationRules = () => {
   ];
 };
 
+const userLoginValidationRules = () => {
+  return [
+    body('email', 'Please include a valid email').isEmail(),
+    body('password', 'Password is Required').exists(),
+  ];
+};
+
 const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
@@ -20,4 +27,4 @@ const validate = (req, res, next) => {
   });
 };
 
-export { userValidationRules, validate };
+export { userValidationRules, userLoginValidationRules, validate };

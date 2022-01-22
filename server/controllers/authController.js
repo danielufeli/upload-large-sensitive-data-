@@ -1,17 +1,25 @@
 import dataObjects from '../helpers/dataObjects.js';
+import jwt from 'jsonwebtoken';
+import config from 'config';
 
-const { newUser } = dataObjects;
+const { newUser, loginUser } = dataObjects;
 
 class authController {
   static async userSignup(req, res) {
     try {
-      const data = await newUser(req, res);
-      return res
-        .status(201)
-        .json({
-          status: 'success',
-          message: `Welcome ${data.name} you have successfully registered`,
-        });
+      const payload = await newUser(req);
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        { expiresIn: 360000 },
+        (err, token) => {
+          if (err) {
+            throw err;
+          } else {
+            return res.status(201).json({ status: 'success', token });
+          }
+        }
+      );
     } catch (error) {
       res.status(500).json(error);
     }
@@ -19,10 +27,19 @@ class authController {
 
   static async userSignin(req, res) {
     try {
-      console.log(req.body);
-      //   const user = await getCurrentUser('email', req.body.email.trim());
-      //   const data = generateUserToken(user);
-      //   return res.status(200).json({ status: 'success', data });
+      const payload = await loginUser(req);
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        { expiresIn: 360000 },
+        (err, token) => {
+          if (err) {
+            throw err;
+          } else {
+            return res.status(200).json({ status: 'success', token });
+          }
+        }
+      );
     } catch (error) {
       return res.status(500).json(error);
     }

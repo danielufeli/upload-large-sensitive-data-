@@ -1,8 +1,9 @@
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import { User } from '../models/User.js';
 
 export default class dataObjects {
+  tokenData = '';
+
   static async newUser(req) {
     const { email, name, password } = req.body;
 
@@ -15,6 +16,26 @@ export default class dataObjects {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
     await user.save();
-    return user;
+    
+    const payload = {
+      user: {
+        id: user.id,
+      },
+    };
+
+    return payload;
+  }
+
+  static async loginUser(req) {
+    const { email } = req.body;
+
+    let user = await User.findOne({ email });
+    const payload = {
+      user: {
+        id: user.id,
+      },
+    };
+
+    return payload;
   }
 }
