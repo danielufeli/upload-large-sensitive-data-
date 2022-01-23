@@ -11,10 +11,10 @@ const router = express.Router();
 
 const { newUpload, getUploads, deleteUpload } = uploadController;
 
-router.post('/new', uploadValidationRules(), validate, newUpload);
+router.post('/new', auth, uploadValidationRules(), validate, newUpload);
 
-router.get('/all', getUploads);
+router.get('/all', auth, getUploads);
 
-router.delete('/:id', deleteUpload);
+router.delete('/:id', auth, deleteUpload);
 
 export default router;

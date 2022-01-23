@@ -27,23 +27,27 @@
     </header>
     <div class="container txt-center">
       <h1>Upload Files</h1>
-      <form
-        method="post"
-        id="uploadForm"
-        action="/api/v1/upload/new"
-        enctype="multipart/form-data"
-      >
-        <input type="text" id="title" name="title" placeholder="Title" />
+      <form id="uploadForm" enctype="multipart/form-data">
+        <div id="errorlog"></div>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          placeholder="Title"
+          required
+        />
         <textarea
           name="description"
           id="description"
           placeholder="Description"
           rows="5"
+          required
         ></textarea>
-        <input type="file" name="mFile" id="mFile" />
-        <div><input type="submit" value="Save" /></div>
+        <input type="file" name="mFile" id="mFile" required />
+        <div><input type="submit" id="createFileId" value="Save" /></div>
       </form>
     </div>
   </body>
+  <script src="./public/js/createFile.js"></script>
   <script src="./public/js/logout.js"></script>
 </html>

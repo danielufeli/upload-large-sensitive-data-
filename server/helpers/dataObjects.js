@@ -47,7 +47,7 @@ export default class dataObjects {
     try {
       const { title, description } = req.body;
       const { files } = req;
-
+      console.log(files);
       if (files) {
         const { mFile } = files;
         const fileName =
