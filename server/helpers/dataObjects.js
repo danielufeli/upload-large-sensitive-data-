@@ -49,13 +49,13 @@ export default class dataObjects {
     const savePath = path.join(__dirname, 'public', 'uploads', fileName);
     await mFile.mv(savePath);
     console.log(fileName);
-    // let uploadedFile = new Upload({
-    //   title,
-    //   description,
-    //   savePath,
-    // });
+    let uploadedFile = new Upload({
+      title,
+      description,
+      savePath,
+    });
 
-    // await uploadedFile.save();
+    await uploadedFile.save();
 
     return uploadedFile;
   }

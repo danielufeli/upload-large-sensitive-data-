@@ -1,6 +1,6 @@
 class homeController {
   static homeMessage(req, res) {
-    res.render('index');
+    res.json({ status: 200, message: 'Welcome to file uploader' });
   }
 }
 
