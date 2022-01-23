@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  savePath: {
+  fileUrl: {
     type: String,
     required: true,
   },

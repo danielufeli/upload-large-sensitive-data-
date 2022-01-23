@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import path from 'path';
+const __dirname = path.resolve();
 import { User } from '../models/User.js';
 import { Upload } from '../models/Upload.js';
 
@@ -41,22 +42,46 @@ export default class dataObjects {
     return payload;
   }
 
-  static async newUpload(req) {
-    const { title, description } = req.body;
-    const { mFile } = req.files;
-    
-    const fileName = new Date().getTime().toString() + path.extname(mFile.name);
-    const savePath = path.join(__dirname, 'public', 'uploads', fileName);
-    await mFile.mv(savePath);
-    console.log(fileName);
-    let uploadedFile = new Upload({
-      title,
-      description,
-      savePath,
-    });
+  static async newUpload(req, res) {
+    try {
+      const { title, description } = req.body;
+      const { files } = req;
 
-    await uploadedFile.save();
+      if (files) {
+        const { mFile } = files;
+        const fileName =
+          new Date().getTime().toString() + path.extname(mFile.name);
+        const savePath = path.join(
+          __dirname,
+          'client',
+          'public',
+          'uploads',
+          fileName
+        );
+        if (mFile.truncated) {
+          return res
+            .status(500)
+            .json({ errors: [{ msg: 'You can only upload upto 1GB...' }] });
+        }
+        await mFile.mv(savePath);
+        const size = mFile.size;
+        const type = mFile.mimetype;
+        const host = `${req.protocol}://${req.get('host')}`;
+        const fileUrl = `${host}/client/public/uploads/${fileName}`;
+        let uploadedFile = new Upload({
+          title,
+          description,
+          fileUrl,
+          size,
+          type,
+        });
 
-    return uploadedFile;
+        await uploadedFile.save();
+
+        return uploadedFile;
+      }
+    } catch (error) {
+      return res.status(500).json(error);
+    }
   }
 }

@@ -1,12 +1,12 @@
-import dataObjects from "../helpers/dataObjects.js";
+import dataObjects from '../helpers/dataObjects.js';
 
 const { newUpload } = dataObjects;
 
 class uploadController {
   static async newUpload(req, res, next) {
     try {
-      const uploadFile = await newUpload(req);
-      return res.status(201).json({ status: 'success' });
+      const uploadedFile = await newUpload(req, res);
+      return res.status(201).json({ status: 'success', uploadedFile });
     } catch (error) {
       res.status(500).json(error);
     }

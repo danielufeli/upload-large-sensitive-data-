@@ -14,6 +14,13 @@ const userLoginValidationRules = () => {
   ];
 };
 
+const uploadValidationRules = () => {
+  return [
+    body('title', 'Title is Required').exists(),
+    body('description', 'Description is Required').exists(),
+  ];
+};
+
 const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
@@ -27,4 +34,4 @@ const validate = (req, res, next) => {
   });
 };
 
-export { userValidationRules, userLoginValidationRules, validate };
+export { userValidationRules, userLoginValidationRules, uploadValidationRules, validate };
