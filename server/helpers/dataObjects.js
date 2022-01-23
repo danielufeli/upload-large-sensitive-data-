@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs';
 import path from 'path';
+import fs from 'fs';
 const __dirname = path.resolve();
 import { User } from '../models/User.js';
 import { Upload } from '../models/Upload.js';
@@ -67,13 +68,14 @@ export default class dataObjects {
         const size = mFile.size;
         const type = mFile.mimetype;
         const host = `${req.protocol}://${req.get('host')}`;
-        const fileUrl = `${host}/client/public/uploads/${fileName}`;
+        const fileUrl = `/client/public/uploads/${fileName}`;
         let uploadedFile = new Upload({
           title,
           description,
           fileUrl,
           size,
           type,
+          savePath,
         });
 
         await uploadedFile.save();
@@ -83,5 +85,24 @@ export default class dataObjects {
     } catch (error) {
       return res.status(500).json(error);
     }
+  }
+
+  static async getFiles(req, res) {
+    const allFiles = await Upload.find();
+    return allFiles;
+  }
+
+  static async deleteFile(req, res) {
+    const file = await Upload.find({ _id: req.params.id });
+
+    fs.unlink(file[0].savePath, () => {
+      Upload.deleteOne({ _id: req.params.id }, (err) => {
+        if (err) {
+          return res.send({ status: '200', response: 'fail' });
+        }
+      });
+    });
+
+    return 'Successfully Deleted File';
   }
 }
