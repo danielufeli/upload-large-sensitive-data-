@@ -6,6 +6,15 @@ class uploadController {
   static async newUpload(req, res, next) {
     try {
       const uploadedFile = await newUpload(req, res);
+      return res.redirect('/dashboard.html');
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
+
+  static async newUploadN(req, res, next) {
+    try {
+      const uploadedFile = await newUpload(req, res);
       return res.status(201).json({ status: 'success', uploadedFile });
     } catch (error) {
       res.status(500).json(error);

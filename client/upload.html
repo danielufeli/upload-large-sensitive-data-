@@ -18,8 +18,8 @@
         </div>
         <nav>
           <ul>
-            <li><a href="/client/dashboard.html">Home</a></li>
-            <li><a href="/client/upload.html">Upload File</a></li>
+            <li><a href="/dashboard.html">Home</a></li>
+            <li><a href="/upload.html">Upload File</a></li>
             <li><button id="logBtn">Logout</button></li>
           </ul>
         </nav>
@@ -27,7 +27,7 @@
     </header>
     <div class="container txt-center">
       <h1>Upload Files</h1>
-      <form id="uploadForm" enctype="multipart/form-data">
+      <form id="uploadForm" action="/api/v1/upload/new" method="post" enctype="multipart/form-data">
         <div id="errorlog"></div>
         <input
           type="text"
@@ -44,7 +44,7 @@
           required
         ></textarea>
         <input type="file" name="mFile" id="mFile" required />
-        <div><input type="submit" id="createFileId" value="Save" /></div>
+        <div><input type="submit" id="" value="Save" /></div>
       </form>
     </div>
   </body>

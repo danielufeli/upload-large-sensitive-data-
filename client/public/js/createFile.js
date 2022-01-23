@@ -12,18 +12,18 @@ const createFile = (e) => {
   const description = document.getElementById('description').value;
   const userFile = document.querySelector('input[type="file"]');
 
-  const url = 'http://localhost:3000/api/v1/upload/new';
+  const url = '/api/v1/upload/new';
 
-  //   const fileData = new FormData();
-  //   fileData.append('mFile', userFile.files);
-  //   fileData.append('title', title);
-  //   fileData.append('description', description);
+    const fileData = new FormData();
+    fileData.append('mFile', userFile.files);
 
-  const fileData = {
-    title: title,
-    description: description,
-    mFile: userFile.files,
-  };
+  console.log(userFile.files);
+
+//   const fileData = {
+//     title: title,
+//     description: description,
+//     mFile: userFile,
+//   };
 
   document.getElementById(
     'errorlog'
@@ -35,15 +35,16 @@ const createFile = (e) => {
       'Content-Type': 'application/json',
       'x-auth-token': userToken,
     },
-    body: JSON.stringify(fileData),
-  }).then((res) => console.log(res));
-  // .then((body) => {
-  //   if (body.status === 201) {
-  //     window.location.href = 'dashboard.html';
-  //   } else {
-  //     document.getElementById('errorlog').innerHTML = Object.values(body);
-  //   }
-  // });
+    body: fileData,
+  })
+    .then((res) => res.json())
+    .then((body) => {
+      if (body.status === 201) {
+        window.location.href = 'dashboard.html';
+      } else {
+        document.getElementById('errorlog').innerHTML = Object.values(body);
+      }
+    });
 };
 const createFileBtn = document.getElementById('createFileId');
 createFileBtn.addEventListener('click', createFile);

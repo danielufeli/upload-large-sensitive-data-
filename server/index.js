@@ -16,6 +16,8 @@ app.use(
 );
 connectDB();
 
+app.use(express.static('client'));
+
 app.set('views', './client');
 app.set('view engine', 'ejs');
 

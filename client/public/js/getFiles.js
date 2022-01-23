@@ -1,7 +1,7 @@
 let fileId;
 
 const deleteFile = () => {
-  const url = `http://localhost:3000/api/v1/upload/${fileId}`;
+  const url = `/api/v1/upload/${fileId}`;
 
   let userToken = '';
   if (localStorage.getItem('token')) {
@@ -28,7 +28,7 @@ const deleteFile = () => {
 };
 
 const getFiles = () => {
-  const url = 'http://localhost:3000/api/v1/upload/all';
+  const url = '/api/v1/upload/all';
 
   let userToken = '';
   if (localStorage.getItem('token')) {
@@ -51,18 +51,18 @@ const getFiles = () => {
       const { allFiles, status } = body;
       if (status === 'success') {
         if (allFiles.length > 0) {
-          let result = '';
-          allFiles.forEach((files) => {
-            fileId = files._id;
-            result += `<table>
-        <tr>
+          let result = `<tr>
           <th>Title</th>
           <th>Description</th>
           <th>File Type</th>
           <th>File Size</th>
           <th>Tiny Link</th>
           <th>Action</th>
-        </tr>
+        </tr>`;
+          allFiles.forEach((files) => {
+            fileId = files._id;
+            result += `
+            
         <tr>
           <td>${files.title}</td>
           <td>${files.description}</td>
@@ -70,8 +70,7 @@ const getFiles = () => {
           <td>${files.size}</td>
           <td><a href=${files.fileUrl}>Tiny URL</td>
           <td><button id="delFile" onclick="deleteFile()">delete</button></td>
-        </tr>
-      </table>`;
+        </tr>`;
           });
           document.getElementById('userFiles').innerHTML = result;
         } else {

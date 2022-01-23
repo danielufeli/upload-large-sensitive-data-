@@ -47,7 +47,6 @@ export default class dataObjects {
     try {
       const { title, description } = req.body;
       const { files } = req;
-      console.log(files);
       if (files) {
         const { mFile } = files;
         const fileName =
@@ -68,7 +67,7 @@ export default class dataObjects {
         const size = mFile.size;
         const type = mFile.mimetype;
         const host = `${req.protocol}://${req.get('host')}`;
-        const fileUrl = `/client/public/uploads/${fileName}`;
+        const fileUrl = `./public/uploads/${fileName}`;
         let uploadedFile = new Upload({
           title,
           description,

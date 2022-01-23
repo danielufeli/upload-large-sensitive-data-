@@ -9,9 +9,11 @@ import auth from '../middleware/auth.js';
 
 const router = express.Router();
 
-const { newUpload, getUploads, deleteUpload } = uploadController;
+const { newUpload, newUploadN, getUploads, deleteUpload } = uploadController;
 
-router.post('/new', auth, uploadValidationRules(), validate, newUpload);
+router.post('/new', newUpload);
+
+router.post('/newa', newUpload);
 
 router.get('/all', auth, getUploads);
 

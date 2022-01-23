@@ -2,7 +2,7 @@ const signForm = () => {
   const userEmail = document.getElementById('email').value;
   const userPassword = document.getElementById('password').value;
 
-  const url = 'http://localhost:3000/api/v1/auth/signin';
+  const url = '/api/v1/auth/signin';
 
   const signInData = {
     email: userEmail,
