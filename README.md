@@ -14,7 +14,7 @@ The Appication was developed with JavaScript (ES6), Node.js using [Express 4](ht
 
 ## API Information
 
-API endpoints URL - https://fileuploaderdan.herokuapp.com/
+API endpoints URL - https://protected-earth-38531.herokuapp.com/
 
 | METHOD | DESCRIPTION  | ENDPOINT           |
 | ------ | ------------ | ------------------ |
@@ -24,11 +24,13 @@ API endpoints URL - https://fileuploaderdan.herokuapp.com/
 | GET    | Get Files    | api/v1/upload/all  |
 | DELETE | Delete Files | api/v1/upload/:id  |
 
+Please don't forget to add the token to the Header
+name: x-auth-token
 ---
 
 ## Live URL
 
-URL - https://fileuploaderdan.herokuapp.com/
+URL - https://protected-earth-38531.herokuapp.com/
 
 ### Sample Users
 
