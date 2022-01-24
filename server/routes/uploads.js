@@ -13,7 +13,7 @@ const { newUpload, newUploadN, getUploads, deleteUpload } = uploadController;
 
 router.post('/new', newUpload);
 
-router.post('/newa', newUpload);
+router.post('/newa', newUploadN);
 
 router.get('/all', auth, getUploads);
 
