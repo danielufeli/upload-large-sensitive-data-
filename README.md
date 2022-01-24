@@ -1,9 +1,6 @@
 # File Uploaded
 ___
-
-# File Uploaded
 An application that allows uses to upload files in a secure way
-
 ___
 
 # Technologies
