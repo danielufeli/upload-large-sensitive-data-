@@ -87,6 +87,7 @@ export default class dataObjects {
   }
 
   static async getFiles(req, res) {
+    console.log(req.user);
     const allFiles = await Upload.find();
     return allFiles;
   }

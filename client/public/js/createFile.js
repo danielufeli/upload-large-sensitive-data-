@@ -30,7 +30,6 @@ const createFile = (e) => {
   ).innerHTML = `<img src="./public/img/loading.gif">`;
   fetch(url, {
     method: 'POST',
-    // mode: 'no-cors',
     headers: {
       'Content-Type': 'application/json',
       'x-auth-token': userToken,
