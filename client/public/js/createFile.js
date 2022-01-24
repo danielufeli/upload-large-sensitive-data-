@@ -1,5 +1,6 @@
 const createFile = (e) => {
   e.preventDefault();
+  console.log(e);
 
   let userToken = '';
   if (localStorage.getItem('token')) {
@@ -10,40 +11,37 @@ const createFile = (e) => {
 
   const title = document.getElementById('title').value;
   const description = document.getElementById('description').value;
-  const userFile = document.querySelector('input[type="file"]');
+  // const userFile = document.querySelector('input[type="file"]');
+  const input = document.getElementById('mFileId');
 
-  const url = '/api/v1/upload/new';
+  const url = '/api/v1/upload/newa';
 
-    const fileData = new FormData();
-    fileData.append('mFile', userFile.files);
+  const uploadFile = (file) => {
+    // add file to FormData object
+    const fd = new FormData();
+    fd.append('mFile', file);
+    fd.append('title', title);
+    fd.append('description', description);
 
-  console.log(userFile.files);
+    // send `POST` request
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'x-auth-token': userToken,
+      },
+      body: fd,
+    })
+      .then((res) => res.json())
+      .then((body) => {
+        console.log(body)
+        if (body.status === 'success') {
+          window.location.href = 'dashboard.html';
+        }
+      })
+      .catch((err) => console.error(err));
+  };
 
-//   const fileData = {
-//     title: title,
-//     description: description,
-//     mFile: userFile,
-//   };
-
-  document.getElementById(
-    'errorlog'
-  ).innerHTML = `<img src="./public/img/loading.gif">`;
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-auth-token': userToken,
-    },
-    body: fileData,
-  })
-    .then((res) => res.json())
-    .then((body) => {
-      if (body.status === 201) {
-        window.location.href = 'dashboard.html';
-      } else {
-        document.getElementById('errorlog').innerHTML = Object.values(body);
-      }
-    });
+  uploadFile(input.files[0]);
 };
 const createFileBtn = document.getElementById('createFileId');
 createFileBtn.addEventListener('click', createFile);

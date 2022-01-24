@@ -46,6 +46,7 @@ export default class dataObjects {
   static async newUpload(req, res) {
     try {
       const { title, description } = req.body;
+      const userId = req.user.id;
       const { files } = req;
       if (files) {
         const { mFile } = files;
@@ -69,6 +70,7 @@ export default class dataObjects {
         const host = `${req.protocol}://${req.get('host')}`;
         const fileUrl = `./public/uploads/${fileName}`;
         let uploadedFile = new Upload({
+          userId,
           title,
           description,
           fileUrl,
@@ -87,8 +89,7 @@ export default class dataObjects {
   }
 
   static async getFiles(req, res) {
-    console.log(req.user);
-    const allFiles = await Upload.find();
+    const allFiles = await Upload.find({ userId: req.user.id });
     return allFiles;
   }
 
